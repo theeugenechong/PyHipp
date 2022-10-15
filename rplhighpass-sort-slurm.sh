@@ -13,6 +13,12 @@
 #SBATCH -e rplhighpass-sort-slurm.%N.%j.err # STDERR
 
 # LOAD MODULES, INSERT CODE, AND RUN YOUR PROGRAMS HERE
+# access and lock an environment to run the job
+/data/minconda3/bin/conda init
+source ~/.bashrc
+envarg='/data/src/PyHipp/envlist.py'
+conda activate $envarg
+
 python -u -c "import PyHipp as pyh; \
 import time; \
 pyh.RPLHighPass(saveLevel=1); \
@@ -21,3 +27,7 @@ mountain_batch.mountain_batch(); \
 from PyHipp import export_mountain_cells; \
 export_mountain_cells.export_mountain_cells(); \
 print(time.localtime());"
+
+# return environment to pool of environments after done with job
+conda deactivate
+/data/src/PyHipp/envlist.py $envarg
