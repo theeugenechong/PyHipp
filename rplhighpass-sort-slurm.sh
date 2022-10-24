@@ -14,9 +14,9 @@
 
 # LOAD MODULES, INSERT CODE, AND RUN YOUR PROGRAMS HERE
 # access and lock an environment to run the job
-/data/minconda3/bin/conda init
+/data/miniconda3/bin/conda init
 source ~/.bashrc
-envarg='/data/src/PyHipp/envlist.py'
+envarg=$(/data/src/PyHipp/envlist.py)
 conda activate $envarg
 
 python -u -c "import PyHipp as pyh; \
